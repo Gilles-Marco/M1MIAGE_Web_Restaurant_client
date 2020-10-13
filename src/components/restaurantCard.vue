@@ -4,10 +4,10 @@
       <v-card-text>
           <v-row>
               <v-col cols="6" xs="12">
-                  Cuisine {{ restaurant.cuisine }}
+                  <restaurant-field title="Cuisine" :content="restaurant.cuisine"/>
               </v-col>
               <v-col cols="6" xs="12">
-                {{ (restaurant.borough) ? restaurant.borough : '???' }}
+                <restaurant-field title="City" :content="(restaurant.borough) ? restaurant.borough : '???'"/>
               </v-col>
           </v-row>
       </v-card-text>
@@ -15,7 +15,12 @@
 </template>
 
 <script>
+import RestaurantField from '@/components/restaurantField.vue'
+
 export default {
+    components:{
+        RestaurantField,
+    },
     props: {
         restaurant: {
             type: Object,

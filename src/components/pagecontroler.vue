@@ -2,31 +2,22 @@
   <v-container>
     <v-row>
       <v-col cols="12">
-        <v-row class="justify-start">
-          <v-col cols="3"
-            ><v-btn color="primary" @click="previousPage"
-              >Previous Page</v-btn
-            ></v-col
-          >
-          <v-col cols="3"
-            ><v-btn color="primary" @click="nextPage">Next Page</v-btn>
-        </v-col
-          >
-          <v-col cols="3">
-              <div class="subtitle">Page {{ page }}</div>
-          </v-col>
-        </v-row>
+        <div>
+            <v-btn color="primary" class="mx-1" @click="previousPage">Previous Page</v-btn>
+            <v-btn color="primary" class="mx-1" @click="nextPage">Next Page</v-btn>
+            <span class="subtitle mx-1">Page {{ page }}</span>
+        </div>
       </v-col>
-      <v-col cols="12"
-        ><input
+      <v-col cols="12">
+        <input
           type="range"
           min="5"
           step="5"
           max="100"
           v-model="pagesize"
         />
-        {{ pagesize }} Restaurants par page</v-col
-      >
+        {{ pagesize }} Restaurants par page
+      </v-col>
     </v-row>
   </v-container>
 </template>
