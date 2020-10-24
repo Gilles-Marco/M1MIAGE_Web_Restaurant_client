@@ -4,10 +4,12 @@
       <v-row
         ><v-text-field
           v-model="search"
+          label="Search"
           prepend-inner-icon="mdi-magnify"
           width="75%"
-        ></v-text-field
-      ></v-row>
+        ></v-text-field>
+        <v-btn color="primary" class="mt-5 ml-2">Advanced Search</v-btn>
+      </v-row>
       <v-row>
         <v-col
           lg="6"
@@ -16,7 +18,7 @@
           :key="restaurant.id"
           class="my-3"
         >
-          <restaurant-card :restaurant="restaurant" />
+          <restaurant-card :showMenu="true" :restaurant="restaurant" />
         </v-col>
       </v-row>
       <v-row>

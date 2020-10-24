@@ -1,19 +1,61 @@
 <template>
   <view-with-drawer>
-      Hello From a restaurant detail
+      <v-container>
+        <v-row>
+            <v-col cols="12"><h1>{{ restaurant.name }}</h1></v-col>
+            <v-col cols="12"><h2>Cuisine 🍽</h2><p class="subtitle-1">{{ restaurant.cuisine }}</p></v-col>
+            <v-col cols="12"><h2>Address</h2>{{ restaurantAddress }}</v-col>
+            <v-col cols="12">
+                <iframe
+                    width="600"
+                    height="450"
+                    frameborder="0" style="border:0"
+                    :src="mapsUrl" allowfullscreen>
+                </iframe>
+            </v-col>
+            <v-col>
+                <h2>Ratings</h2>
+                <v-row>
+                    <v-col md="3" lg="2" v-for="grade in restaurant.grades" :key="grade.date" >
+                        <grades :grade="grade"/>
+                    </v-col>
+                </v-row>
+            </v-col>
+        </v-row>
+      </v-container>
   </view-with-drawer>
 </template>
 
 <script>
 import ViewWithDrawer from '@/layout/view_with_drawer.vue'
+import Grades from '@/components/grades.vue'
 export default {
     components:{
-        ViewWithDrawer
+        ViewWithDrawer,
+        Grades
     },
     data: function(){
         return {
-
+            restaurant: {},
+            restaurantAddress: '',
+            mapsUrl: ''
         }
+    },
+    mounted(){
+        // Fetch the restaurant id
+        let restaurant_id = this.$route.query.id
+        fetch(`http://localhost:8080/api/restaurants/${restaurant_id}`).then((response)=>{
+            response.json().then((value)=>{
+                this.restaurant = value.restaurant
+                this.restaurantAddress = `${this.restaurant.borough} ${this.restaurant.address.zipcode}, Building ${this.restaurant.address.building} on ${this.restaurant.address.street}`
+                this.mapsUrl = `https://www.google.com/maps/embed/v1/search?key=AIzaSyBtAUbnsQm49CJeKogToNysL_iTLACKo-8&q=${this.restaurant.address.building}+${this.restaurant.address.street},${this.restaurant.borough}+${this.restaurant.address.zipcode}`
+                console.log(this.restaurant)
+            }).catch((error)=>{
+                console.error(error)
+            })
+        }).catch((error)=>{
+            console.error(error)
+        })
     }
 }
 </script>
