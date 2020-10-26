@@ -1,6 +1,7 @@
 <template>
-  <v-card>
-      <v-card-title>
+  <v-card :to="urlDetail">
+      <v-card-title
+      @click.prevent.stop>
           {{ restaurant.name }}
           <v-spacer/>
           <v-menu
@@ -13,22 +14,23 @@
                 icon
                 v-bind="attrs"
                 v-on="on"
+                @click.prevent.stop
               >
                 <v-icon>mdi-dots-vertical</v-icon>
               </v-btn>
             </template>
 
             <v-list>
-              <v-list-item>
-                <v-list-item-title class="red--text"><v-icon color="red" @click="$emit('delete-restaurant', restaurant)">mdi-delete</v-icon> Delete</v-list-item-title>
+              <v-list-item class="action_command" @click="$emit('delete-restaurant', restaurant)">
+                <v-list-item-title class="red--text"><v-icon color="red">mdi-delete</v-icon> Delete</v-list-item-title>
               </v-list-item>
-              <v-list-item>
-                <v-list-item-title class="gray--text"><v-icon color="gray" @click="$emit('edit-restaurant', restaurant)">mdi-pen</v-icon> Edit</v-list-item-title>
+              <v-list-item class="action_command" @click="$emit('edit-restaurant', restaurant)">
+                <v-list-item-title class="gray--text"><v-icon color="gray">mdi-pen</v-icon> Edit</v-list-item-title>
               </v-list-item>
             </v-list>
           </v-menu>
       </v-card-title>
-      <v-card-text :to="urlDetail">
+      <v-card-text >
           <v-row>
               <v-col cols="6" xs="12">
                   <restaurant-field title="Cuisine" :content="restaurant.cuisine"/>
@@ -67,12 +69,15 @@ export default {
             urlDetail: `/RestaurantDetail?id=${this.restaurant._id}`
         }
     },
-    mounted(){
-        console.log(this.restaurant)
-    }
 }
 </script>
 
-<style>
+<style scoped>
+  .action_command{
+    cursor: pointer;
+  }
 
+  .action_command:hover{
+    background-color: #EEE;
+  }
 </style>

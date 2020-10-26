@@ -38,17 +38,19 @@ export default {
         return {
             restaurant: {},
             restaurantAddress: '',
-            mapsUrl: ''
+            mapsUrl: '',
+            api_key: '',
         }
     },
     mounted(){
         // Fetch the restaurant id
+        this.api_key = process.env.VUE_APP_MAPS_API_KEY
         let restaurant_id = this.$route.query.id
         fetch(`http://localhost:8080/api/restaurants/${restaurant_id}`).then((response)=>{
             response.json().then((value)=>{
                 this.restaurant = value.restaurant
                 this.restaurantAddress = `${this.restaurant.borough} ${this.restaurant.address.zipcode}, Building ${this.restaurant.address.building} on ${this.restaurant.address.street}`
-                this.mapsUrl = `https://www.google.com/maps/embed/v1/search?key=AIzaSyBtAUbnsQm49CJeKogToNysL_iTLACKo-8&q=${this.restaurant.address.building}+${this.restaurant.address.street},${this.restaurant.borough}+${this.restaurant.address.zipcode}`
+                this.mapsUrl = `https://www.google.com/maps/embed/v1/search?key=${this.api_key}&q=${this.restaurant.address.building}+${this.restaurant.address.street},${this.restaurant.borough}+${this.restaurant.address.zipcode}`
                 console.log(this.restaurant)
             }).catch((error)=>{
                 console.error(error)

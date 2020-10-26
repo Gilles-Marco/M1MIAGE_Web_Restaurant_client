@@ -6,6 +6,12 @@
           </v-list-item>
       </v-list>
       <v-divider></v-divider>
+      <v-list>
+          <v-list-item to="/">
+              <v-icon>mdi-home</v-icon> Accueil
+          </v-list-item>
+      </v-list>
+      <v-divider></v-divider>
         <v-list>
             <v-list-item v-for="item in actions" :key="item.name">
                 <div class="item-drawer" @click="item.action"><v-icon>{{ item.icon }}</v-icon> {{ item.name }}</div>
