@@ -3,8 +3,8 @@
     <v-row>
       <v-col cols="12">
         <div>
-            <v-btn color="primary" class="mx-1" @click="previousPage">Previous Page</v-btn>
-            <v-btn color="primary" class="mx-1" @click="nextPage">Next Page</v-btn>
+            <v-btn color="primary" class="mx-1" @click="previousPage">Page précédente</v-btn>
+            <v-btn color="primary" class="mx-1" @click="nextPage">Page suivante</v-btn>
             <span class="subtitle mx-1">Page {{ page }}</span>
         </div>
       </v-col>

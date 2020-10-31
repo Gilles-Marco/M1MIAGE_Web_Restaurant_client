@@ -4,6 +4,7 @@
       :confirmColor="confirmVar.confirmColor" :cancelButtonText="confirmVar.cancelButtonText" 
       :confirmButtonText="confirmVar.confirmButtonText" :confirmButtonAction="confirmVar.confirmButtonAction" 
       :cancelButtonAction="confirmVar.cancelButtonAction" :args="confirmVar.args"/>
+    <restaurant-crud ref="restaurant_crud"/>
     <v-container class="ml-3 mt-3">
       <v-row
         ><v-text-field
@@ -12,7 +13,7 @@
           prepend-inner-icon="mdi-magnify"
           width="75%"
         ></v-text-field>
-        <v-btn color="primary" class="mt-5 ml-2">Advanced Search</v-btn>
+        <v-btn color="primary" class="mt-5 ml-2">Recherche avancée</v-btn>
       </v-row>
       <v-row>
         <v-col
@@ -39,9 +40,10 @@ import ViewWithDrawer from "@/layout/view_with_drawer.vue";
 import RestaurantCard from "@/components/restaurantCard.vue";
 import PageControler from "@/components/pagecontroler.vue";
 import Confirm from '@/components/confirm.vue';
+import RestaurantCrud from '@/components/restaurantCrud.vue'
 
 export default {
-  components: { ViewWithDrawer, RestaurantCard, PageControler, Confirm },
+  components: { ViewWithDrawer, RestaurantCard, PageControler, Confirm, RestaurantCrud },
   data: function () {
     return {
       restaurants: [],
@@ -78,12 +80,12 @@ export default {
         });
     },
     confirmRestaurantDeletion(restaurant){
-      this.confirmVar.title = "You are about to delete an entry"
-      this.confirmVar.message = "You cannot undone this action when it's done"
+      this.confirmVar.title = "Vous êtes sur le point de supprimer une entrée"
+      this.confirmVar.message = "Vous ne pourrez pas revenir en arrière, une fois celle-ci confirmée"
       this.confirmVar.confirmColor = "red"
       this.confirmVar.confirmButtonAction = this.deleteRestaurant
-      this.confirmVar.confirmButtonText = "DELETE"
-      this.confirmVar.cancelButtonText = "Cancel"
+      this.confirmVar.confirmButtonText = "SUPPRIMER"
+      this.confirmVar.cancelButtonText = "Annuler"
       this.confirmVar.cancelButtonAction = this.closeDialog
       this.confirmVar.args = [restaurant]
       this.$refs.confirmDialog.openDialog()
@@ -101,7 +103,8 @@ export default {
       })
     },
     editRestaurant(restaurant){
-      console.log('edit restaurant '+restaurant)
+      console.log(this.$refs)
+      this.$refs.restaurant_crud.openDialogEdit(restaurant)
     },
     closeDialog(){
       this.$refs.confirmDialog.showDialog = false

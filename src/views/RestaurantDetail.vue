@@ -4,7 +4,7 @@
         <v-row>
             <v-col cols="12"><h1>{{ restaurant.name }}</h1></v-col>
             <v-col cols="12"><h2>Cuisine 🍽</h2><p class="subtitle-1">{{ restaurant.cuisine }}</p></v-col>
-            <v-col cols="12"><h2>Address</h2>{{ restaurantAddress }}</v-col>
+            <v-col cols="12"><h2>Addresse</h2>{{ restaurantAddress }}</v-col>
             <v-col cols="12">
                 <iframe
                     width="600"
@@ -14,7 +14,7 @@
                 </iframe>
             </v-col>
             <v-col>
-                <h2>Ratings</h2>
+                <h2>Notes et commentaires</h2>
                 <v-row>
                     <v-col md="3" lg="2" v-for="grade in restaurant.grades" :key="grade.date" >
                         <grades :grade="grade"/>
