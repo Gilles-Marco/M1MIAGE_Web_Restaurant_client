@@ -76,8 +76,7 @@ export default {
             this.showDialog = true;
         },
         confirmAction(){
-            this.confirmButtonAction(this.args).then((value)=>{
-                console.log(value)
+            this.confirmButtonAction(this.args).then(()=>{
                 this.showDialog = false
             }).catch((error)=>{
                 console.error(error)

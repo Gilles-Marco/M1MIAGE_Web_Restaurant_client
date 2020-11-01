@@ -82,9 +82,8 @@ export default {
           'Accept': 'application/json',
           'Content-Type': 'application/json'
         }
-      }).then((response)=>{
+      }).then(()=>{
         this.$emit('create-restaurant', formData)
-        console.log(response)
         this.showDialog = false
       }).catch((error)=>{
         this.showDialog = false
@@ -102,8 +101,7 @@ export default {
         method: "PUT",
         mode: "cors",
         body: JSON.stringify(data),
-      }).then((response) => {
-        console.log(response)
+      }).then(() => {
         this.$emit('edit-restaurant', this.formRestaurant)
         this.showDialog = false
       }).catch((error)=>{

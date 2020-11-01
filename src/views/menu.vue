@@ -5,21 +5,31 @@
       :confirmButtonText="confirmVar.confirmButtonText" :confirmButtonAction="confirmVar.confirmButtonAction" 
       :cancelButtonAction="confirmVar.cancelButtonAction" :args="confirmVar.args"/>
     <restaurant-crud ref="restaurant_crud"/>
+    <advanced-search ref="advanced_search" @advanced-search-restaurants="displayAdvancedSearch"/>
     <v-container class="ml-3 mt-3">
-      <v-row
-        ><v-text-field
-          v-model="search"
-          label="Search"
-          prepend-inner-icon="mdi-magnify"
-          width="75%"
-        ></v-text-field>
-        <v-btn color="primary" class="mt-5 ml-2">Recherche avancée</v-btn>
+      <v-row>
+        <v-col cols="9">
+          <v-text-field
+            v-model="search"
+            label="Search"
+            prepend-inner-icon="mdi-magnify"
+            width="75%"
+            v-show="(advancedRestaurants.length == 0)"
+          ></v-text-field>
+          <v-btn color="purple" class="white--text" v-show="(advancedRestaurants.length > 0)">
+            1 Recherche avancée
+            <v-btn icon @click="advancedRestaurants = []; pageControler.page = 1"><v-icon color="white">mdi-close-octagon</v-icon></v-btn>
+          </v-btn>
+        </v-col>
+        <v-col cols="3">
+          <v-btn color="primary" class="mt-5 ml-2" @click="openSearch()">Recherche avancée <v-icon></v-icon></v-btn>
+        </v-col>
       </v-row>
       <v-row>
         <v-col
           lg="6"
           md="12"
-          v-for="restaurant in filteredRestaurants"
+          v-for="restaurant in restaurantToDisplay"
           :key="restaurant.id"
           class="my-3"
         >
@@ -41,9 +51,10 @@ import RestaurantCard from "@/components/restaurantCard.vue";
 import PageControler from "@/components/pagecontroler.vue";
 import Confirm from '@/components/confirm.vue';
 import RestaurantCrud from '@/components/restaurantCrud.vue'
+import AdvancedSearch from '@/components/advanced_search.vue'
 
 export default {
-  components: { ViewWithDrawer, RestaurantCard, PageControler, Confirm, RestaurantCrud },
+  components: { ViewWithDrawer, RestaurantCard, PageControler, Confirm, RestaurantCrud, AdvancedSearch },
   data: function () {
     return {
       restaurants: [],
@@ -62,7 +73,8 @@ export default {
         cancelButtonText: 'Cancel',
         confirmButtonText: 'Confirm',
         args: []
-      }
+      },
+      advancedRestaurants: [],
     };
   },
   methods: {
@@ -103,16 +115,39 @@ export default {
       })
     },
     editRestaurant(restaurant){
-      console.log(this.$refs)
       this.$refs.restaurant_crud.openDialogEdit(restaurant)
     },
     closeDialog(){
       this.$refs.confirmDialog.showDialog = false
+    },
+    openSearch(){
+      this.$refs.advanced_search.openDialog()
+    },
+    displayAdvancedSearch(restaurants){
+      this.advancedRestaurants = restaurants
+      this.pageControler.page = 1
     }
   },
   computed: {
     filteredRestaurants() {
-      return this.restaurants.filter((r) => r.name.match(this.search));
+      return this.restaurants.filter((r) => r.name.match(this.search) || r.cuisine.match(this.search) || r.borough.match(this.search));
+    },
+    restaurantToDisplay(){
+      // Priority is accorded to advanced search then to filteredRestaurant then to normal display
+      if (this.advancedRestaurants.length > 0) {
+        // Paginate the advanced result if necessary
+        if (this.advancedRestaurants.length > this.pageControler.pagesize){
+          let start = (this.pageControler.page-1) * this.pageControler.pagesize
+          let end = start + this.pageControler.pagesize
+          let sub_selection = this.advancedRestaurants.slice(start, end)
+          return sub_selection
+        }
+        // No pagination because it is not necessary
+        else
+          return this.advancedRestaurants
+      }
+      else if (this.filteredRestaurants.length > 0) return this.filteredRestaurants
+      else return this.restaurants
     },
   },
   mounted() {

@@ -51,7 +51,6 @@ export default {
                 this.restaurant = value.restaurant
                 this.restaurantAddress = `${this.restaurant.borough} ${this.restaurant.address.zipcode}, Building ${this.restaurant.address.building} on ${this.restaurant.address.street}`
                 this.mapsUrl = `https://www.google.com/maps/embed/v1/search?key=${this.api_key}&q=${this.restaurant.address.building}+${this.restaurant.address.street},${this.restaurant.borough}+${this.restaurant.address.zipcode}`
-                console.log(this.restaurant)
             }).catch((error)=>{
                 console.error(error)
             })

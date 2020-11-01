@@ -54,6 +54,10 @@ export default {
       pagesize(){
           this.$emit('input', {page: this.page, pagesize: this.pagesize})
       }
+  },
+  mounted(){
+    this.$watch('value.page', (newVal)=>{this.page = newVal})
+    this.$watch('value.pagesize', (newVal)=>{this.pagesize = newVal})
   }
 };
 </script>

@@ -25,7 +25,7 @@ export default {
                 case 'A':
                     return "green--text"
                 case 'B':
-                    return "darkblue--text"
+                    return "blue--text"
                 case 'C':
                     return 'yellow--text'
                 default: 
