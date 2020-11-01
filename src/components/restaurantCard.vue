@@ -22,10 +22,10 @@
 
             <v-list>
               <v-list-item class="action_command" @click="$emit('delete-restaurant', restaurant)">
-                <v-list-item-title class="red--text"><v-icon color="red">mdi-delete</v-icon> Delete</v-list-item-title>
+                <v-list-item-title class="red--text"><v-icon color="red">mdi-delete</v-icon> Supprimer</v-list-item-title>
               </v-list-item>
               <v-list-item class="action_command" @click="$emit('edit-restaurant', restaurant)">
-                <v-list-item-title class="gray--text"><v-icon color="gray">mdi-pen</v-icon> Edit</v-list-item-title>
+                <v-list-item-title class="gray--text"><v-icon color="gray">mdi-pen</v-icon> Éditer</v-list-item-title>
               </v-list-item>
             </v-list>
           </v-menu>
@@ -64,11 +64,11 @@ export default {
             default: false
         }
     },
-    data: function(){
-        return {
-            urlDetail: `/RestaurantDetail?id=${this.restaurant._id}`
-        }
-    },
+    computed: {
+      urlDetail(){
+        return `/RestaurantDetail?id=${this.restaurant._id}`
+      }
+    }
 }
 </script>
 

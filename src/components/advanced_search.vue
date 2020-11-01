@@ -27,8 +27,8 @@
           </v-form>
       </v-card-text>
       <v-card-actions>
-        <v-btn color="red" class="white--text" @click="closeDialog()">Cancel</v-btn>
-        <v-btn color='primary' @click="search()">Search</v-btn>
+        <v-btn color="red" class="white--text" @click="closeDialog()">Annuler</v-btn>
+        <v-btn color='primary' @click="search()">Rechercher</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
