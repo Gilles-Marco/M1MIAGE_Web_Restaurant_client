@@ -1,10 +1,22 @@
 <template>
   <view-with-drawer>
       <v-container>
+        <menu-detail ref="menu_detail"/>
         <v-row>
-            <v-col cols="12"><h1>{{ restaurant.name }}</h1></v-col>
-            <v-col cols="12"><h2>Cuisine 🍽</h2><p class="subtitle-1">{{ restaurant.cuisine }}</p></v-col>
-            <v-col cols="12"><h2>Addresse</h2>{{ restaurantAddress }}</v-col>
+            <v-col cols="4">
+                <v-row>
+                    <v-col cols="12"><h1>{{ restaurant.name }}</h1></v-col>
+                    <v-col cols="12">
+                        <h2>Cuisine 🍽</h2>
+                        <p class="subtitle-1">{{ restaurant.cuisine }}</p>
+                        <v-btn @click="showMenu">Voir le menu</v-btn>
+                    </v-col>
+                </v-row>
+            </v-col>
+            <v-col cols="8">
+                <image-restaurant width="340px" height="200px"/>
+            </v-col>
+            <v-col cols="12"><h2>Adresse</h2>{{ restaurantAddress }}</v-col>
             <v-col cols="12">
                 <iframe
                     width="600"
@@ -29,10 +41,15 @@
 <script>
 import ViewWithDrawer from '@/layout/view_with_drawer.vue'
 import Grades from '@/components/grades.vue'
+import ImageRestaurant from '@/components/image_restaurant.vue'
+import MenuDetail from '@/components/menuDetail.vue'
+
 export default {
     components:{
         ViewWithDrawer,
-        Grades
+        Grades,
+        ImageRestaurant,
+        MenuDetail
     },
     data: function(){
         return {
@@ -40,6 +57,8 @@ export default {
             restaurantAddress: '',
             mapsUrl: '',
             api_key: '',
+            restaurant_type: '',
+            TYPE: ['bistrot', 'gastronomique']
         }
     },
     mounted(){
@@ -57,6 +76,11 @@ export default {
         }).catch((error)=>{
             console.error(error)
         })
+    },
+    methods: {
+        showMenu(){
+            this.$refs.menu_detail.openDialog()
+        }
     }
 }
 </script>

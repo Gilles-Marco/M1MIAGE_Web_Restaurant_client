@@ -38,6 +38,9 @@
               <v-col cols="6" xs="12">
                 <restaurant-field title="City" :content="(restaurant.borough) ? restaurant.borough : '???'"/>
               </v-col>
+              <v-col>
+                <image-restaurant :restaurant="restaurant"/>
+              </v-col>
           </v-row>
       </v-card-text>
   </v-card>
@@ -45,10 +48,11 @@
 
 <script>
 import RestaurantField from '@/components/restaurantField.vue'
+import ImageRestaurant from '@/components/image_restaurant.vue'
 
 export default {
     components:{
-        RestaurantField,
+        RestaurantField, ImageRestaurant
     },
     props: {
         restaurant: {
