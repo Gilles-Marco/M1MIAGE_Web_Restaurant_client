@@ -109,13 +109,6 @@ import menus from '../../public/menus.json'
 
 export default {
     props: {
-        type: {
-            type: String,
-            default: function(){
-                let choix = ['Plat midi', 'Gastronomique']
-                return choix[Math.floor(Math.random() * choix.length)]
-            }
-        },
         restaurant: {
             type: Object,
             default: function(){
