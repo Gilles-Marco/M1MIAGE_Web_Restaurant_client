@@ -1,7 +1,7 @@
 <template>
   <view-with-drawer>
       <v-container>
-        <menu-detail ref="menu_detail"/>
+        <menu-detail :restaurant="restaurant" ref="menu_detail"/>
         <v-row>
             <v-col cols="4">
                 <v-row>
@@ -9,7 +9,7 @@
                     <v-col cols="12">
                         <h2>Cuisine 🍽</h2>
                         <p class="subtitle-1">{{ restaurant.cuisine }}</p>
-                        <v-btn @click="showMenu">Voir le menu</v-btn>
+                        <v-btn @click="showMenu" color="orange" class="white--text">Voir le menu</v-btn>
                     </v-col>
                 </v-row>
             </v-col>
