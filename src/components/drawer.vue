@@ -19,6 +19,7 @@
         </v-list>
       <v-divider/>
       <v-list>
+        <v-list-item class="title">Réservations</v-list-item>
           <v-list-item v-for="(r, i) in reservations" :key="i">
               <v-row>
                   <v-col cols="8">
